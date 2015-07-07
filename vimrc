@@ -13,7 +13,8 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+"Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'bling/vim-airline'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-surround'
 Plugin 'mileszs/ack.vim'
@@ -23,7 +24,6 @@ Plugin 'JuliaLang/julia-vim'
 " vim-scripts repos
 "Bundle 'UltiSnips'
 call vundle#end()
-filetype plugin indent on
 
 filetype plugin indent on
 filetype on
@@ -41,6 +41,10 @@ set softtabstop=4
 
 set modelines=0
 
+scriptencoding utf-8
+set encoding=utf-8
+
+set lines=50 columns=120
 set ruler
 if version >= 703
     set relativenumber
@@ -53,6 +57,7 @@ set laststatus=2
 
 set list
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+
 
 inoremap jk <esc>
 let mapleader = ","
@@ -86,23 +91,34 @@ let g:syntastic_mode_map = { 'mode': 'active',
     \ 'passive_filetypes': ['html'] }
 let g:syntastic_enable_signs=1
 let g:syntastic_quiet_messages = {'level': 'warnings'}
-let g:syntastic_python_checker_args='--ignore=E128,E501'
-let g:syntastic_error_symbol       = '✗'
-let g:syntastic_warning_symbol     = '⚠'
+let g:syntastic_python_flake8_args='--ignore=E128,E501'
+"let g:syntastic_error_symbol       = '✗'
+"let g:syntastic_warning_symbol     = '⚠'
+
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " Ack
 nnoremap <leader>a :Ack!<space>
 
 " Powerline
-let g:Powerline_symbols = 'fancy'
+"let g:Powerline_symbols = 'fancy'
 set guifont=Inconsolata\ for\ Powerline:h15
 set encoding=utf-8
 set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
-set term=xterm-256color
+if has("win32")
+	set term=xterm
+else
+	set term=xterm-256color
+endif
+
 set termencoding=utf-8
 
 if has("gui_running")
