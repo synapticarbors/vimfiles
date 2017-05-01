@@ -19,6 +19,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'mileszs/ack.vim'
 Plugin 'ervandew/supertab'
 Plugin 'JuliaLang/julia-vim'
+Plugin 'PProvost/vim-ps1'
 
 " vim-scripts repos
 "Bundle 'UltiSnips'
@@ -40,6 +41,8 @@ set shiftwidth=4
 set softtabstop=4
 
 set modelines=0
+
+set hidden
 
 set ruler
 if version >= 703
@@ -68,6 +71,9 @@ noremap <Right> <NOP>
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 "textwidth=79
 
+" yaml indentation
+au FileType yaml setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
+
 " Color scheme
 let g:solarized_contrast="high"
 colorscheme solarized
@@ -81,12 +87,16 @@ else
 endif
 
 " Enable syntastic syntax checking
+let g:syntastic_check_on_open = 1
 let g:syntastic_mode_map = { 'mode': 'active',
-    \ 'active_filetypes': [],
+    \ 'active_filetypes': ['python', 'cython'],
     \ 'passive_filetypes': ['html'] }
 let g:syntastic_enable_signs=1
-let g:syntastic_quiet_messages = {'level': 'warnings'}
-let g:syntastic_python_checker_args='--ignore=E128,E501'
+let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_aggregate_errors = 1
+"let g:syntastic_quiet_messages = {'level': 'warnings'}
+"let g:syntastic_python_checker_args='--ignore=E128,E501'
+let g:syntastic_python_pep8_args = "--ignore=E126,E127,E128,E501"
 let g:syntastic_error_symbol       = '✗'
 let g:syntastic_warning_symbol     = '⚠'
 set statusline+=%#warningmsg#
@@ -113,15 +123,5 @@ if has("gui_running")
    endif
 
 
-func! WordProcessorMode()
-    setlocal formatoptions=t1
-    setlocal textwidth=80
-    map j gj
-    map k gk
-    set complete+=s
-    set formatprg=par
-    setlocal smartindent
-    setlocal spell spelllang=en_us
-    setlocal noexpandtab
-endfu
-com! WP call WordProcessorMode()
+" CDC = Change to directory of the current file
+command CDC lcd %:p:h
