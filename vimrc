@@ -20,6 +20,7 @@ Plugin 'mileszs/ack.vim'
 Plugin 'ervandew/supertab'
 Plugin 'JuliaLang/julia-vim'
 Plugin 'PProvost/vim-ps1'
+Plugin 'rust-lang/rust.vim'
 
 " vim-scripts repos
 "Bundle 'UltiSnips'
@@ -125,3 +126,13 @@ if has("gui_running")
 
 " CDC = Change to directory of the current file
 command CDC lcd %:p:h
+
+
+" Macro for QTP consolation types
+let @q = 'yyppppkkk:.s/ex5/qu5/gj:.s/ex5/b4/gj:.s/ex5/b4s5/gj:.s/ex5/b3/g'
+
+autocmd BufWritePre *.py,*.pyx %s/\s\+$//e
+
+
+" Rust
+let g:rustfmt_autosave = 1
