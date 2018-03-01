@@ -4,9 +4,7 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" Bundler for vim, use :BundleInstall to install these bundles and
-" :BundleUpdate to update all of them
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " Github based bundles
 Plugin 'kien/ctrlp.vim'
@@ -24,8 +22,6 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'posva/vim-vue'
 Plugin 'HerringtonDarkholme/yats.vim'
 
-" vim-scripts repos
-"Bundle 'UltiSnips'
 call vundle#end()
 filetype plugin indent on
 
